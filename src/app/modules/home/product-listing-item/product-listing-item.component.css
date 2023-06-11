@@ -1,0 +1,27 @@
+:host{
+    padding: 10px;
+    box-sizing: border-box;
+    transition: padding 0.1s;
+}
+:host(:hover){
+    padding: 15px;
+    background-color: rgb(186, 216, 243);
+}
+img{
+    width: 100%;
+    user-drag: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+a{
+    user-drag: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+div{
+    color: black;
+}

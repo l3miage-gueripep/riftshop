@@ -1,0 +1,7 @@
+:host{
+    display: grid;
+    background-color: #a6e6ff;
+    grid-column: 2;
+
+    grid-template-columns: repeat(4, 1fr);
+}

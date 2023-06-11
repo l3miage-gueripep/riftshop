@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'ABeeZee-Regular';
+    src: url('../../../../assets/fonts/ABeeZee-Regular.ttf') format('truetype');
+}
+
+:host{
+    cursor: pointer;
+    height: 100%;
+}
+
+a{
+    display: flex;
+    height: 100%;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.title{
+    color: white;
+    font-family: "ABeeZee-Regular";
+    font-size: 20px;
+    margin-top: 5px;
+}
+
+img{
+    height: 100%;
+    border: 2px solid rgb(188, 205, 255);
+}

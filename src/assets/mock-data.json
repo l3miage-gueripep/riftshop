@@ -1,0 +1,30 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john@example.com"
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "email": "jane@example.com"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Poro Plush",
+      "price": 10.99,
+      "description": "Meet the Poro Plush, the must-have companion for League of Legends fans and gamers alike. This soft and cuddly plush toy captures the adorable essence of the lovable Poro creatures. With its fluffy white fur and round shape, it's impossible to resist giving it a hug. Crafted from high-quality materials, this plush is built to last and is velvety smooth to the touch. It's the perfect size to snuggle up with or display proudly in your gaming setup. Whether you're a child or an adult, the Poro Plush is an enchanting gift that will bring joy to any League of Legends enthusiast.",
+      "image": "poroplush.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Jean Michel Crapaud",
+      "price": 19.99,
+      "description": "A product description",
+      "image": "scuttleplush.webp"
+    }
+  ]
+}

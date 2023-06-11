@@ -1,0 +1,113 @@
+.product{
+    display: grid;
+    margin: 0 20%;
+    grid-template-columns: 2fr 2fr;
+    gap: 0px 50px;
+}
+
+.product-text{
+    display: grid;
+    gap: 10px;
+}
+
+.product-information{
+    margin: 10px 0
+}
+
+.name{
+    text-transform: uppercase;
+    font-size: 2em;
+}
+
+.price{
+    font-size: 1.5em;
+}
+
+img{
+    width: 100%;
+    grid-row: 1/3;
+}
+
+.description{
+    border-top: 1px solid rgb(191, 191, 191);
+    padding-top: 30px;
+    margin-top: 30px;
+    font-size: 1.2em;
+}
+
+.quantity{
+    font-size: 1.3em;
+}
+
+.quantity-selector{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 150px;
+    height: 50px;
+    place-items: center;
+    border: 1px solid grey;
+
+}
+.increment-button{
+    background-color: rgb(236, 236, 236);
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    font-size: 2em;
+    cursor: pointer;
+    user-select: none;
+}
+
+.increment-button:hover{
+    background-color: rgb(188, 205, 255);
+}
+
+.action-buttons{
+    margin-top: 10px;
+    display: grid;
+    gap: 10px
+}
+
+.action-buttons > *{
+    place-items: center;
+    font-size: 1.5em;
+    cursor: pointer;
+    border: 1px solid grey;
+    box-sizing: border-box;
+
+    display: grid;
+    align-items: stretch;
+    justify-items: stretch;
+
+
+}
+
+.action-buttons .text{
+    grid-area: 1/1;
+    text-align: center;
+    padding: 10px;
+}
+
+.background{
+    background-color: rgb(188, 205, 255);
+    /* z-index: -1000; */
+    grid-area: 1/1;
+}
+.buy{
+    background-color: #1138b1;
+    /* z-index: -1000; */
+    color: white;
+    transition: 0.5s;
+}
+.buy:hover{
+    color: black;
+    transition: 0.5s;
+}
+
+.buy .background{
+    background-color: rgb(188, 205, 255);
+}
+
+

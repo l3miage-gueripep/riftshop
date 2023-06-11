@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'Raleway-Regular';
+    src: url('./assets/fonts/Raleway-Regular.ttf') format('truetype');
+}
+
+*{
+    font-family: "Raleway-Regular";
+}
+
+a{
+    text-decoration: none;
+}
+
+body{
+    margin: 0;
+}
+
+html{
+    overflow-x: hidden; /* Hides horizontal overflow */
+}

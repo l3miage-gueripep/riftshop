@@ -1,0 +1,5 @@
+:host{
+    display: grid;
+    background-color: #4da7cb;
+    grid-template-columns: 1fr 3fr;
+}

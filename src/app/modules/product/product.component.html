@@ -1,0 +1,26 @@
+<div *ngIf="product$ | async as p" class="product">
+    <img [src]="p.image" [alt]="p.name" />
+    <div class="product-text">
+        <div class="product-information">
+            <div class="name">{{ p.name }}</div>
+            <div class="price">{{ p.frenchPrice }}</div>
+            <div class="description">{{ p.description }}</div>
+        </div>
+        <div class="quantity-selector">
+            <div class="increment-button minus" increment=-1 (click)="changeQuantity($event)">-</div>
+            <div class="quantity">{{ selectedQuantity }}</div>
+            <div class="increment-button plus" increment="1" (click)="changeQuantity($event)">+</div>
+        </div>
+        <div class="action-buttons">
+            <div class="cart" (mouseenter)="playSlideRightAnimation('cart-button', 'open')" (mouseleave)="playSlideRightAnimation('cart-button', 'closed')">
+                <div class="background" [@slideRight]="cartButtonState"></div>
+                <div class="text">Add to Cart</div>
+            </div>
+            <div class="buy" (mouseenter)="playSlideRightAnimation('buy-button', 'open')" (mouseleave)="playSlideRightAnimation('buy-button', 'closed')">
+                <div class="background" [@slideRight]="buyButtonState"></div>
+                <div class="text">Buy now</div>
+            </div>
+        </div>
+    </div>
+
+</div>
