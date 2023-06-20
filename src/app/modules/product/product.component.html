@@ -13,11 +13,11 @@
         </div>
         <div class="action-buttons">
             <div class="cart" (mouseenter)="playSlideRightAnimation('cart-button', 'open')" (mouseleave)="playSlideRightAnimation('cart-button', 'closed')">
-                <div class="background" [@slideRight]="cartButtonState"></div>
+                <div class="background" [@slide]="cartButtonState"></div>
                 <div class="text">Add to Cart</div>
             </div>
             <div class="buy" (mouseenter)="playSlideRightAnimation('buy-button', 'open')" (mouseleave)="playSlideRightAnimation('buy-button', 'closed')">
-                <div class="background" [@slideRight]="buyButtonState"></div>
+                <div class="background" [@slide]="buyButtonState"></div>
                 <div class="text">Buy now</div>
             </div>
         </div>

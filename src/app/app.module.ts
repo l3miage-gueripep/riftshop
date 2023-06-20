@@ -12,6 +12,7 @@ import { HomeComponent } from './modules/home/home.component';
 import { ProductComponent } from './modules/product/product.component';
 import { CommonModule } from '@angular/common';
 import { ProductModule } from './modules/product/product.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ProductModule } from './modules/product/product.module';
     BrowserAnimationsModule,
     HeaderModule,
     HomeModule,
-    ProductModule
+    ProductModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

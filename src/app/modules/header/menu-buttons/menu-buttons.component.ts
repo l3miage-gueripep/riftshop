@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { faShoppingBag, faUser } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-menu-buttons',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./menu-buttons.component.css']
 })
 export class MenuButtonsComponent {
+  shoppingCartIcon = faShoppingBag;
+  userIcon = faUser;
 
 }

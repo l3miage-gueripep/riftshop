@@ -4,6 +4,7 @@ import { MenuButtonsComponent } from './menu-buttons/menu-buttons.component';
 import { HeaderComponent } from './header.component';
 import { LogoComponent } from './logo/logo.component';
 import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     RouterModule,
+    FontAwesomeModule,
   ],
   exports: [
     HeaderComponent

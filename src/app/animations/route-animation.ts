@@ -1,15 +1,14 @@
 import { trigger, transition, style, animate, query, animateChild, group } from '@angular/animations';
-export const slideInAnimation =
-  trigger('routeAnimations', [
+export const routeAnimation =
+  trigger('routeAnimation', [
     transition('HomePage <=> ProductPage', [
       style({ position: 'relative' }),
-      query(':enter, :leave', [
+      query(':leave', [
         style({
           position: 'absolute',
           top: 0,
           left: 0,
           width: '100%',
-          overflow: 'hidden'
         })
       ]),
       query(':enter', [

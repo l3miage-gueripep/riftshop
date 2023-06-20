@@ -1,7 +1,7 @@
 import { trigger, transition, style, animate, query, animateChild, group, state, sequence } from '@angular/animations';
-export const slideRight = trigger('slideRight', [
+export const slide = trigger('slide', [
     state('closed', style({
-        width: '0px',
+        width: '0%',
         justifySelf: 'start'
     })),
     state('open', style({
@@ -12,10 +12,10 @@ export const slideRight = trigger('slideRight', [
 
     //transition
     transition('closed => open', [
-        animate('0.2s ease-in', style({ width: '100%' })),
+        animate('0.3s ease-out', style({ width: '100%' })),
     ]),
     transition('open => closed', [
-        animate('0.1s ease-in', style({ width: '0px' })),
+        animate('0.2s ease-out', style({ width: '0%' })),
     ]),
 
 ])

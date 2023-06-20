@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { slideRight } from 'src/app/animations/animations';
+import { slide } from 'src/app/animations/animations';
 import { Product } from 'src/app/models/product';
 import { ProductDataService } from 'src/app/services/product-data.service';
 
@@ -9,9 +9,7 @@ import { ProductDataService } from 'src/app/services/product-data.service';
   selector: 'app-product[product]',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css'],
-  animations: [
-    slideRight
-  ]
+  animations: [slide]
 })
 export class ProductComponent {
   product$!: Observable<Product>;
