@@ -8,10 +8,4 @@ import { Product } from 'src/app/models/product';
 })
 export class ProductComponent {
   @Input() data!: Product; // made it mendatory in selector
-
-  ngOnInit(): void {
-    //create a new instance of product from the data
-    // this.data = new Product(this.data.id, this.data.name, this.data.price, this.data.description, this.data.image);
-  }
-
 }

@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { ProductModule } from './modules/product/product.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CartModule } from './modules/cart/cart.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HeaderModule,
     HomeModule,
     ProductModule,
+    CartModule,
     FontAwesomeModule,
   ],
   providers: [],

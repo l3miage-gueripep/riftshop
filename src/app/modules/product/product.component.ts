@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable, last, take } from 'rxjs';
 import { slide } from 'src/app/animations/animations';
+import { CartItem } from 'src/app/models/cart-item';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductDataService } from 'src/app/services/product-data.service';
@@ -44,7 +45,9 @@ export class ProductComponent {
 
   protected addToCart() {
     this.product$.pipe(last()).subscribe(product => {
-      this.cartService.addProduct(product, this.selectedQuantity);
+      const quantity: number = this.selectedQuantity;
+      const cartItem: CartItem = { product, quantity }
+      this.cartService.addProduct(cartItem);
     });
     //reset animation and update observable
     this.playSlideRightAnimation('cart-button', 'closed')

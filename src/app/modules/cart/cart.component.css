@@ -1,0 +1,10 @@
+.cart-items{
+    grid-column: 2;
+    display: grid;
+    gap: 20px;
+}
+
+:host{
+    display: grid;
+    grid-template-columns: 1fr 7fr 1fr;
+}

@@ -1,1 +1,4 @@
-<p>cart works!</p>
+<div class="cart-items" >
+    <h1>Votre panier</h1>
+    <app-cart-item *ngFor="let item of this.cartService.content" [cartItem]="item"></app-cart-item>
+</div>

@@ -1,21 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product';
-import { Observable, of } from 'rxjs';
+import { CartItem } from '../models/cart-item';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private content: { product: Product, quantity: number } [] = [];
+  public content: CartItem [] = [];
 
-  public addProduct(product: Product, quantity: number) {
-    //increment the quantity of the product if it already exists in the cart
-    const existingCartItem = this.content.find(item => item.product.id === product.id);
-    if (existingCartItem) {
-      existingCartItem.quantity += quantity;
-    } else {
-      this.content.push({ product, quantity });
-    }
+  public addProduct(cartItem: CartItem) {
+    this.content.push(cartItem);
   }
 
   public removeProduct(productId: number): void {
