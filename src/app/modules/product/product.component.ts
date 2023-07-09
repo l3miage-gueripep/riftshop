@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject, Observable, last, take } from 'rxjs';
 import { slide } from 'src/app/animations/animations';
 import { Product } from 'src/app/models/product';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductDataService } from 'src/app/services/product-data.service';
 
 @Component({
@@ -12,28 +13,64 @@ import { ProductDataService } from 'src/app/services/product-data.service';
   animations: [slide]
 })
 export class ProductComponent {
-  product$!: Observable<Product>;
-  selectedQuantity: number = 1;
-  constructor(protected productDataService: ProductDataService, private route: ActivatedRoute){
-    this.route.params.subscribe(params => {
+  protected product$!: Observable<Product>;
+  protected selectedQuantity: number = 1;
+  protected isProductInCart$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  constructor(protected productDataService: ProductDataService, private route: ActivatedRoute, private router: Router, protected cartService: CartService) {
+    this.retrieveProductFromRoute();
+    this.refreshIsProductInCartOnProductRetrieved();
+  }
+
+  private retrieveProductFromRoute(): void {
+    this.route.params.pipe(take(1)).subscribe(params => {
       const productId: number = params['id'];
-      // retrieve the corresponding product
       this.product$ = this.productDataService.getProductById(productId);
-
-
     });
   }
 
-  changeQuantity(event: any) {
-    this.selectedQuantity += event.target.classList.contains("plus") ? 1 : this.selectedQuantity > 1 ? -1 : 0;
+  private refreshIsProductInCartOnProductRetrieved(): void {
+    this.product$.pipe(take(1)).subscribe(product => {
+      this.isProductInCart$.next(this.cartService.isProductInCart(product));
+    });
   }
 
-  //animation
-  cartButtonState = 'closed';
-  buyButtonState = 'closed';
+  protected changeQuantity(event: any) {
+    const quantityToAddWhenPressingMinus: number = this.selectedQuantity > 1 ? -1 : 0;
+    this.selectedQuantity += event.target.classList.contains("plus") ? 1 : quantityToAddWhenPressingMinus;
+  }
 
-  playSlideRightAnimation(element: string, state: string) {
-    switch(element) {
+
+
+  protected addToCart() {
+    this.product$.pipe(last()).subscribe(product => {
+      this.cartService.addProduct(product, this.selectedQuantity);
+    });
+    //reset animation and update observable
+    this.playSlideRightAnimation('cart-button', 'closed')
+    this.isProductInCart$.next(true);
+  }
+
+  protected goToCart(): void {
+    this.router.navigate(['cart'])
+  }
+
+  protected deleteFromCart(): void {
+    this.product$.pipe(take(1)).subscribe(product => {
+      this.cartService.removeProduct(product.id);
+    });
+    this.isProductInCart$.next(false);
+  }
+
+
+
+
+  //animation
+  protected cartButtonState = 'closed';
+  protected buyButtonState = 'closed';
+
+  protected playSlideRightAnimation(element: string, state: string) {
+    switch (element) {
       case 'cart-button':
         this.cartButtonState = state;
         break;

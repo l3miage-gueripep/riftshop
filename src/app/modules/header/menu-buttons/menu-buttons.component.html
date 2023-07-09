@@ -1,6 +1,8 @@
-<a href="">
+<a class="cart-icon" routerLink="cart">
     <fa-icon [icon]="shoppingCartIcon"></fa-icon>
+    <span class="cart-count" [hidden]="this.cartService.itemsAmount === 0"></span>
 </a>
+
 
 <a routerLink="user">
     <fa-icon [icon]="userIcon"></fa-icon>

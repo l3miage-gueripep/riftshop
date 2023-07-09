@@ -7,16 +7,13 @@ import { AppComponent } from './app.component';
 import { HeaderModule } from './modules/header/header.module';
 import { HomeModule } from './modules/home/home.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
-import { HomeComponent } from './modules/home/home.component';
-import { ProductComponent } from './modules/product/product.component';
 import { CommonModule } from '@angular/common';
 import { ProductModule } from './modules/product/product.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

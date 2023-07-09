@@ -7,3 +7,17 @@ fa-icon{
     font-size: 3em;
     color: white;
 }
+
+.cart-icon {
+    position: relative;
+  }
+
+.cart-count {
+    position: absolute;
+    background-color: rgb(71, 187, 255);
+    color: white;
+    border-radius: 50%;
+    padding: 8px;
+    left: 33px;
+    top: 10px;
+  }

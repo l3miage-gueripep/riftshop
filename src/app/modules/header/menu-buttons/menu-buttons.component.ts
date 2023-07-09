@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { faShoppingBag, faUser } from '@fortawesome/free-solid-svg-icons';
+import { CartService } from 'src/app/services/cart.service';
 
 
 @Component({
@@ -10,5 +11,5 @@ import { faShoppingBag, faUser } from '@fortawesome/free-solid-svg-icons';
 export class MenuButtonsComponent {
   shoppingCartIcon = faShoppingBag;
   userIcon = faUser;
-
+  constructor(protected cartService: CartService) { }
 }

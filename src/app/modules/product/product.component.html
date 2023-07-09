@@ -1,26 +1,42 @@
 <div *ngIf="product$ | async as p" class="product">
-    <img [src]="p.image" [alt]="p.name" />
-    <div class="product-text">
-        <div class="product-information">
-            <div class="name">{{ p.name }}</div>
-            <div class="price">{{ p.frenchPrice }}</div>
-            <div class="description">{{ p.description }}</div>
-        </div>
-        <div class="quantity-selector">
-            <div class="increment-button minus" increment=-1 (click)="changeQuantity($event)">-</div>
-            <div class="quantity">{{ selectedQuantity }}</div>
-            <div class="increment-button plus" increment="1" (click)="changeQuantity($event)">+</div>
-        </div>
-        <div class="action-buttons">
-            <div class="cart" (mouseenter)="playSlideRightAnimation('cart-button', 'open')" (mouseleave)="playSlideRightAnimation('cart-button', 'closed')">
-                <div class="background" [@slide]="cartButtonState"></div>
-                <div class="text">Add to Cart</div>
-            </div>
-            <div class="buy" (mouseenter)="playSlideRightAnimation('buy-button', 'open')" (mouseleave)="playSlideRightAnimation('buy-button', 'closed')">
-                <div class="background" [@slide]="buyButtonState"></div>
-                <div class="text">Buy now</div>
-            </div>
-        </div>
+  <img [src]="p.image" [alt]="p.name" />
+  <div class="product-text">
+    <div class="product-information">
+      <div class="name">{{ p.name }}</div>
+      <div class="price">{{ p.frenchPrice }}</div>
+      <div class="description">{{ p.description }}</div>
     </div>
+
+    <div class="quantity-selector" *ngIf="!(this.isProductInCart$ | async)">
+      <div class="increment-button minus" increment=-1 (click)="changeQuantity($event)">-</div>
+      <div class="quantity">{{ selectedQuantity }}</div>
+      <div class="increment-button plus" increment="1" (click)="changeQuantity($event)">+</div>
+    </div>
+
+    <div class="action-buttons">
+      <div *ngIf="!(this.isProductInCart$ | async); else alreadyInCart" class="cart elegant" (click)="addToCart()"
+        (mouseenter)="playSlideRightAnimation('cart-button', 'open')"
+        (mouseleave)="playSlideRightAnimation('cart-button', 'closed')">
+        <div class="background" [@slide]="cartButtonState"></div>
+        <div class="text">Add to Cart</div>
+      </div>
+      <ng-template #alreadyInCart>
+        <div class="already-in-cart-buttons">
+          <div class="go-to-cart" (click)="goToCart()">
+            <div class="text">Go to cart</div>
+          </div>
+          <div class="delete-button" (click)="deleteFromCart()">
+            <div class="text">Delete From Cart</div>
+          </div>
+        </div>
+      </ng-template>
+
+      <div class="buy elegant" (mouseenter)="playSlideRightAnimation('buy-button', 'open')"
+        (mouseleave)="playSlideRightAnimation('buy-button', 'closed')">
+        <div class="background" [@slide]="buyButtonState"></div>
+        <div class="text">Buy now</div>
+      </div>
+    </div>
+  </div>
 
 </div>
