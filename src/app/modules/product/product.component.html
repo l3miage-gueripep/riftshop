@@ -7,11 +7,7 @@
       <div class="description">{{ p.description }}</div>
     </div>
 
-    <div class="quantity-selector" *ngIf="!(this.isProductInCart$ | async)">
-      <div class="increment-button minus" increment=-1 (click)="changeQuantity($event)">-</div>
-      <div class="quantity">{{ selectedQuantity }}</div>
-      <div class="increment-button plus" increment="1" (click)="changeQuantity($event)">+</div>
-    </div>
+    <app-quantity-selector [hidden]="(this.isProductInCart$ | async)"></app-quantity-selector>
 
     <div class="action-buttons">
       <div *ngIf="!(this.isProductInCart$ | async); else alreadyInCart" class="cart elegant" (click)="addToCart()"

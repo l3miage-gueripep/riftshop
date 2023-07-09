@@ -1,4 +1,16 @@
 <div class="wrapper">
+  <a [routerLink]="['/products', this.cartItem.product.id]">
     <img [src]="this.cartItem.product.image" alt="">
-    <p> {{ this.cartItem.product.name }} </p>
+  </a>
+
+  <div class="cart-item-text">
+    <a [routerLink]="['/products', this.cartItem.product.id]">
+      <h2>{{ this.cartItem.product.name }}</h2>
+    </a>
+    <app-quantity-selector [quantity]="this.cartItem.quantity"></app-quantity-selector>
+    <div class="delete-button" (click)="deleteFromCart()">
+      <div class="text">Delete From Cart</div>
+    </div>
+    <h2 class="total-price">{{ this.cartItem.frenchTotalPrice }}</h2>
+  </div>
 </div>

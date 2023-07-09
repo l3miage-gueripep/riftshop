@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { ProductModule } from './modules/product/product.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CartModule } from './modules/cart/cart.module';
+import { QuantitySelectorComponent } from './shared-components/quantity-selector/quantity-selector.component';
 
 @NgModule({
   declarations: [

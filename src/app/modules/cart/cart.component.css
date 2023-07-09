@@ -2,6 +2,14 @@
     grid-column: 2;
     display: grid;
     gap: 20px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.items-list{
+    grid-column: 1/3;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 :host{

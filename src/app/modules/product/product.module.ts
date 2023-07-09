@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductComponent } from './product.component';
 import { RouterModule } from '@angular/router';
+import { SharedComponentsModule } from 'src/app/shared-components/shared-components.module';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    SharedComponentsModule,
   ],
   exports: [
     ProductComponent

@@ -39,31 +39,6 @@ img{
     font-size: 1.3em;
 }
 
-.quantity-selector{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    width: 150px;
-    height: 50px;
-    place-items: center;
-    border: 1px solid grey;
-
-}
-.increment-button{
-    background-color: rgb(236, 236, 236);
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-    display: grid;
-    place-items: center;
-    font-size: 2em;
-    cursor: pointer;
-    user-select: none;
-}
-
-.increment-button:hover{
-    background-color: rgb(188, 205, 255);
-}
-
 .action-buttons{
     margin-top: 10px;
     display: grid;
@@ -121,11 +96,11 @@ img{
     color: white;
 }
 .delete-button:hover{
-    background-color: red;
+    background-color: rgb(214, 0, 0);
 }
 
 .go-to-cart:hover{
-    background-color: aliceblue;
+    background-color: rgb(188, 205, 255);
 }
 
 .already-in-cart-buttons{

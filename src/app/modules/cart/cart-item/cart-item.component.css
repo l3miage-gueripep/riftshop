@@ -5,11 +5,33 @@
     grid-template-columns: 200px 1fr;
     grid-template-rows: 200px;
     gap: 20px;
+    border: 1px solid black;
+    padding: 20px;
 }
-
 
 img{
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+
+.cart-item-text{
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 8fr 1fr;
+    place-items: start;
+}
+
+.total-price{
+    font-weight: 300;
+}
+
+.delete-button{
+    color: red;
+    cursor: pointer;
+}
+
+.delete-button:hover{
+    color: rgb(188, 0, 0);
 }

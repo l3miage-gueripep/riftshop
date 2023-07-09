@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartComponent } from './cart.component';
 import { CartItemComponent } from './cart-item/cart-item.component';
+import { RouterModule } from '@angular/router';
+import { QuantitySelectorComponent } from 'src/app/shared-components/quantity-selector/quantity-selector.component';
+import { SharedComponentsModule } from 'src/app/shared-components/shared-components.module';
 
 
 
@@ -11,7 +14,9 @@ import { CartItemComponent } from './cart-item/cart-item.component';
     CartItemComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule,
+    SharedComponentsModule
   ],
   exports: [
     CartComponent

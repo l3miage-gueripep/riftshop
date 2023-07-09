@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable, last, take } from 'rxjs';
 import { slide } from 'src/app/animations/animations';
@@ -6,6 +6,7 @@ import { CartItem } from 'src/app/models/cart-item';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductDataService } from 'src/app/services/product-data.service';
+import { QuantitySelectorComponent } from 'src/app/shared-components/quantity-selector/quantity-selector.component';
 
 @Component({
   selector: 'app-product[product]',
@@ -15,8 +16,8 @@ import { ProductDataService } from 'src/app/services/product-data.service';
 })
 export class ProductComponent {
   protected product$!: Observable<Product>;
-  protected selectedQuantity: number = 1;
   protected isProductInCart$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  @ViewChild(QuantitySelectorComponent) quantitySelector!: QuantitySelectorComponent;
 
   constructor(protected productDataService: ProductDataService, private route: ActivatedRoute, private router: Router, protected cartService: CartService) {
     this.retrieveProductFromRoute();
@@ -36,17 +37,10 @@ export class ProductComponent {
     });
   }
 
-  protected changeQuantity(event: any) {
-    const quantityToAddWhenPressingMinus: number = this.selectedQuantity > 1 ? -1 : 0;
-    this.selectedQuantity += event.target.classList.contains("plus") ? 1 : quantityToAddWhenPressingMinus;
-  }
-
-
-
   protected addToCart() {
     this.product$.pipe(last()).subscribe(product => {
-      const quantity: number = this.selectedQuantity;
-      const cartItem: CartItem = { product, quantity }
+      const quantity: number = this.quantitySelector.quantity;
+      const cartItem: CartItem = new CartItem(product, quantity);
       this.cartService.addProduct(cartItem);
     });
     //reset animation and update observable

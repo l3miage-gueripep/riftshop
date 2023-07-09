@@ -1,4 +1,12 @@
 <div class="cart-items" >
     <h1>Votre panier</h1>
-    <app-cart-item *ngFor="let item of this.cartService.content" [cartItem]="item"></app-cart-item>
+    <button type="button" >Passer la commande</button>
+    <div *ngIf="cartService.content.length > 0; else noItem" class="items-list">
+      <app-cart-item *ngFor="let item of this.cartService.content" [cartItem]="item"></app-cart-item>
+    </div>
+
+    <ng-template #noItem>
+      <!-- Alternative content when there are no items -->
+      <p>No item found.</p>
+    </ng-template>
 </div>
