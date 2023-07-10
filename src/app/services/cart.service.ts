@@ -47,4 +47,12 @@ export class CartService {
   public get itemsAmount(): number {
     return this.content.reduce((total, item) => total + item.quantity, 0);
   }
+
+  public setProductQuantity(productId: number, quantity: number){
+    const cartItem: CartItem | undefined = this.content.find(cartItem => cartItem.product.id === productId);
+    if(cartItem){
+      cartItem.quantity = quantity;
+      this.setLocalStorageContent();
+    }
+  }
 }

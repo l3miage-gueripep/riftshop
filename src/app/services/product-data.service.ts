@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Product } from '../models/product';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,7 @@ export class ProductDataService {
 
   getData(): Observable<Product[]> {
     return this.http.get<any>('assets/mock-data.json').pipe(
-      map(response => response.products as Product[]),
-      map(products => products.map(product => new Product(product.id, product.name, product.price, product.description, product.image)))
+      map(response => plainToInstance(Product, response.products))
     );
   }
 

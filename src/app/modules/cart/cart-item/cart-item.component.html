@@ -7,7 +7,7 @@
     <a [routerLink]="['/products', this.cartItem.product.id]">
       <h2>{{ this.cartItem.product.name }}</h2>
     </a>
-    <app-quantity-selector [quantity]="this.cartItem.quantity"></app-quantity-selector>
+    <app-quantity-selector [quantity]="this.cartItem.quantity" [cartItem]="this.cartItem"></app-quantity-selector>
     <div class="delete-button" (click)="deleteFromCart()">
       <div class="text">Delete From Cart</div>
     </div>
