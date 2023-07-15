@@ -17,7 +17,6 @@ export class QuantitySelectorComponent {
     const quantityToAddWhenPressingMinus: number = this.quantity > 1 ? -1 : 0;
     this.quantity += event.target.classList.contains("plus") ? 1 : quantityToAddWhenPressingMinus;
     //change the quantity in the cart item if it's already one
-    console.log(this.cartItem);
     if(this.cartItem){
       this.cartService.setProductQuantity(this.cartItem.product.id, this.quantity);
     }

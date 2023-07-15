@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { ProductModule } from './modules/product/product.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CartModule } from './modules/cart/cart.module';
+import { PaymentModule } from './modules/payment/payment.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { CartModule } from './modules/cart/cart.module';
     HomeModule,
     ProductModule,
     CartModule,
+    PaymentModule,
     FontAwesomeModule,
   ],
   providers: [],

@@ -1,6 +1,6 @@
 <div class="cart-items" >
     <h1>Votre panier</h1>
-    <button type="button" >Passer la commande</button>
+    <a [routerLink]="['/payment']">Passer la commande</a>
     <div *ngIf="cartService.content.length > 0; else noItem" class="items-list">
       <app-cart-item *ngFor="let item of this.cartService.content" [cartItem]="item"></app-cart-item>
     </div>
