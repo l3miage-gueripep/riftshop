@@ -9,10 +9,10 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }));
-const port = process.env.PORT || 3000;
+const port = process.env.PORT ?? 3000;
 
 
-const environment: string = process.env.ENVIRONMENT || 'sandbox';
+const environment: string = process.env.ENVIRONMENT ?? 'sandbox';
 const client_id: string | undefined = process.env.CLIENT_ID;
 const client_secret: string | undefined = process.env.CLIENT_SECRET;
 const endpoint_url: string = environment === 'sandbox' ? 'https://api-m.sandbox.paypal.com' : 'https://api-m.paypal.com';
