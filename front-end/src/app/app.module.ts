@@ -12,6 +12,8 @@ import { ProductModule } from './modules/product/product.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CartModule } from './modules/cart/cart.module';
 import { PaymentModule } from './modules/payment/payment.module';
+import { LoginSystemModule } from './modules/login-system/login-system.module';
+import { AuthGuard } from './services/permissions.service';
 
 @NgModule({
   declarations: [
@@ -29,8 +31,9 @@ import { PaymentModule } from './modules/payment/payment.module';
     CartModule,
     PaymentModule,
     FontAwesomeModule,
+    LoginSystemModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
