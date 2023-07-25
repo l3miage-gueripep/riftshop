@@ -5,6 +5,8 @@ import { HeaderComponent } from './header.component';
 import { LogoComponent } from './logo/logo.component';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CommonModule,
     RouterModule,
     FontAwesomeModule,
+    MatProgressBarModule,
+    MatBadgeModule
   ],
   exports: [
     HeaderComponent

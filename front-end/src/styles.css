@@ -14,8 +14,10 @@ a{
 
 body{
     margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 html{
     overflow-x: hidden; /* Hides horizontal overflow */
 }
+/* html, body { height: 100%; } */

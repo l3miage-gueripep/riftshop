@@ -1,12 +1,12 @@
 <div class="cart-items" >
-    <h1>Votre panier</h1>
-    <a [routerLink]="['/payment']">Passer la commande</a>
+    <h1>Your cart</h1>
+    <a [routerLink]="['/payment']" *ngIf="cartService.content.length">Place order</a>
     <div *ngIf="cartService.content.length > 0; else noItem" class="items-list">
       <app-cart-item *ngFor="let item of this.cartService.content" [cartItem]="item"></app-cart-item>
     </div>
 
     <ng-template #noItem>
       <!-- Alternative content when there are no items -->
-      <p>No item found.</p>
+      <p class="no-item-message">No item found.</p>
     </ng-template>
 </div>

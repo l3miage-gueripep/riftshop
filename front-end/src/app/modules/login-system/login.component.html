@@ -1,28 +1,49 @@
-<h1>Welcome to My Awesome App</h1>
-<form [formGroup]="this.registerForm" (ngSubmit)="this.register()">
-    <h2>Register</h2>
-    <div>
-        <label for="email">Username: </label>
-        <input type="text" formControlName="email">
-    </div>
-    <div>
-        <label for="password">Password: </label>
-        <input type="password" formControlName="password">
-    </div>
-    <button type="submit" [disabled]="!loginForm.valid">submit</button>
-</form>
 
-<form [formGroup]="this.loginForm" (ngSubmit)="this.login()">
-    <h2>Login</h2>
-    <div>
-        <label for="email">Username: </label>
-        <input type="text" formControlName="email">
-    </div>
-    <div>
-        <label for="password">Password: </label>
-        <input type="password" formControlName="password">
-    </div>
-    <button type="submit" [disabled]="!loginForm.valid">submit</button>
-</form>
+<div class="wrapper">
+    <!-- register form -->
+    <!--  -->
+    <form [formGroup]="this.registerForm" (ngSubmit)="this.register()">
+        <h2>Register</h2>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Your email address" formControlName="email">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Your password" formControlName="password" autocomplete="new-password">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Confirm password</mat-label>
+            <input matInput placeholder="Repeat your password" formControlName="confirmPassword">
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" [disabled]="this.registerForm.invalid">Submit</button>
+    </form>
 
-<button (click)="this.checkConnected()">check</button>
+
+    <!--  -->
+    <!-- login form -->
+    <!--  -->
+    <form [formGroup]="this.loginForm" (ngSubmit)="this.login()">
+        <h2>Login</h2>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Your email address" formControlName="email" autocomplete="email">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Your password" formControlName="password" autocomplete="off">
+        </mat-form-field>
+        
+        <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Submit</button>
+    </form>
+    
+    
+</div>
+
+
+
+
+
+
+
+

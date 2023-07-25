@@ -1,10 +1,19 @@
-:host{
+:host, mat-progress-bar {
+    --header-height: 80px;
+}
+
+.wrapper{
     display: flex;
     justify-content: space-between;
     background-color: #061c25;
     color: white;
     padding: 10px;
-    height: 60px;
-
+    height: var(--header-height);
+    box-sizing: border-box;
     margin-bottom: 40px;
+}
+
+mat-progress-bar{
+    position: absolute;
+    top: var(--header-height);
 }

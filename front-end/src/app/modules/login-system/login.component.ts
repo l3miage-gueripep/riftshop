@@ -1,20 +1,22 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { FirebaseService } from 'src/app/services/firebase.service';
-
+import { FirebaseLoginService } from 'src/app/services/firebase-login.service';
+import { GeneralService } from 'src/app/services/general.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   protected registerForm: FormGroup;
   protected loginForm: FormGroup;
-  constructor(protected firebaseService: FirebaseService) { 
+  constructor(protected firebaseLoginService: FirebaseLoginService, private generalService: GeneralService) { 
     this.registerForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)])
+      //password
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
       //confirmPassword
+      confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)])
     });
 
     this.loginForm = new FormGroup({
@@ -24,18 +26,23 @@ export class LoginComponent {
     
   }
 
+  public test(){
+    console.log(this.loginForm.valid);
+    return this.loginForm.valid
+  }
+
   public register(){
     const { email, password } = this.registerForm.value;
-    this.firebaseService.register(email, password);
+    this.firebaseLoginService.register(email, password);
   }
 
-  public login(){
+  public async login(){
     const { email, password } = this.loginForm.value;
-    this.firebaseService.login(email, password);
-  }
-
-  public checkConnected(){
-    console.log(this.firebaseService.user$.value);
+    this.generalService.isLoading = true;
+    await this.firebaseLoginService.login(email, password);
+    this.generalService.isLoading = false;
+    
   }
 
 }
+

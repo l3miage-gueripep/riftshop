@@ -1,2 +1,5 @@
-<app-logo></app-logo>
-<app-menu-buttons></app-menu-buttons>
+<div class="wrapper">
+    <app-logo></app-logo>
+    <app-menu-buttons></app-menu-buttons>
+</div>
+<mat-progress-bar mode="query" *ngIf="this.generalService.isLoading"></mat-progress-bar>

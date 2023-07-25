@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FirebaseLoginService } from 'src/app/services/firebase-login.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
@@ -7,6 +8,6 @@ import { FirebaseService } from 'src/app/services/firebase.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent {
-  constructor(protected firebaseService: FirebaseService) { }
+  constructor(protected firebaseLoginService: FirebaseLoginService) { }
 
 }

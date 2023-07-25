@@ -16,3 +16,8 @@
     display: grid;
     grid-template-columns: 1fr 7fr 1fr;
 }
+
+.no-item-message{
+    grid-row: 2;
+    margin-left: 10px;
+}

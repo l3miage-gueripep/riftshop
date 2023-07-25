@@ -1,29 +1,25 @@
 import { Injectable, inject } from '@angular/core';
 import { FirebaseService } from './firebase.service';
 import { UrlTree, Router, ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from '@angular/router';
+import { FirebaseLoginService } from './firebase-login.service';
 
 @Injectable()
 export class AuthGuard {
-  constructor(private firebaseService: FirebaseService, private router: Router) { 
+  constructor(private firebaseLoginService: FirebaseLoginService, private router: Router) { 
 
   }
   canActivate(redirectTo: string): UrlTree | boolean {
-    console.log(redirectTo)
-    if (!this.firebaseService.user$.value) {
+    if (!this.firebaseLoginService.user) {
       return this.router.createUrlTree(['login'], { queryParams: { returnUrl: redirectTo } });
     }
     else{
       return true;
     }
   }
-  canMatch(): boolean {
-    return true;
-  }
 }
 
 export const canActivateUser: CanActivateFn =
 (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-  console.log('can ac')
   return inject(AuthGuard).canActivate(state.url);
 };
 
