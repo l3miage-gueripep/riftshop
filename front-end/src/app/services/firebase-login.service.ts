@@ -13,6 +13,8 @@ export class FirebaseLoginService {
 
   constructor(firebaseService: FirebaseService, private router: Router, private route: ActivatedRoute) {
     this.auth = getAuth();
+    this.user = this.getUserFromLocalStorage();
+    console.log(this.user);
   }
   
 
@@ -32,6 +34,7 @@ export class FirebaseLoginService {
     await signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
         this.user = userCredential.user;
+        localStorage.setItem('userAuth', JSON.stringify(userCredential));
         this.autoRedirect();
       })
       .catch((error) => {
@@ -58,8 +61,19 @@ export class FirebaseLoginService {
   public logout() {
     this.auth.signOut().then(() => {
       this.user = undefined;
+      localStorage.removeItem('userAuth');
       this.autoRedirect();
     });
   }
+
+  private getUserFromLocalStorage(): User | undefined {
+    const userAuth = localStorage.getItem('userAuth');
+    if (userAuth) {
+      const userAuthObj = JSON.parse(userAuth);
+      return userAuthObj.user;
+    }
+    return undefined;
+  }
+
 
 }

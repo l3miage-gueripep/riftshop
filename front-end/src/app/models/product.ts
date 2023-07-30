@@ -1,5 +1,5 @@
 export class Product {
-    constructor(public id: number, public name: string, public price: number, public description: string, private _image: string) { }
+    constructor(public id: string, public name: string, public price: number, public description: string, private _image: string) { }
     get image(): string {
         let imageLocation = "assets/images/";
         return imageLocation + this._image;

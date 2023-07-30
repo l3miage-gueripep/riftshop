@@ -18,7 +18,7 @@ export class CartService {
     this.setLocalStorageContent();
   }
 
-  public removeProduct(productId: number): void {
+  public removeProduct(productId: string): void {
     this.content = this.content.filter(contentItem => {
       return contentItem.product.id !== productId;
     });
@@ -48,7 +48,7 @@ export class CartService {
     return this.content.reduce((total, item) => total + item.quantity, 0);
   }
 
-  public setProductQuantity(productId: number, quantity: number){
+  public setProductQuantity(productId: string, quantity: number){
     const cartItem: CartItem | undefined = this.content.find(cartItem => cartItem.product.id === productId);
     if(cartItem){
       cartItem.quantity = quantity;

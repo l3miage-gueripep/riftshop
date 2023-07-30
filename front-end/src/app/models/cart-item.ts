@@ -12,7 +12,7 @@ export class CartItem {
   }
     
   public get frenchTotalPrice(): string {
-    const totalPrice = this.product.price * this.quantity;
+    const totalPrice = (this.product.price * this.quantity).toFixed(2);
     return "€ " + totalPrice.toString().replace(".", ",");
   }
 }

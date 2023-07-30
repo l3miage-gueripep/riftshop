@@ -1,8 +1,8 @@
-<a [matBadge]="this.cartService.content.length" [matBadgeHidden]="this.cartService.content.length === 0" class="cart-icon" routerLink="cart">
+<a [matBadge]="this.cartService.content.length" [matBadgeHidden]="this.cartService.content.length === 0" class="cart-icon" routerLink="cart" routerLinkActive="active-link">
     <fa-icon  [icon]="shoppingCartIcon" ></fa-icon>
 </a>
 
-<a routerLink="user">
+<a routerLink="user" routerLinkActive="active-link">
     <fa-icon [icon]="userIcon"></fa-icon>
 </a>
 

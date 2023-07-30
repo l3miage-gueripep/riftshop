@@ -14,3 +14,7 @@ fa-icon{
 .cart-icon {
     position: relative;
   }
+
+.active-link fa-icon{
+  color: #4da7cb;
+}

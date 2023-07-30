@@ -1,0 +1,35 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+
+$primary: mat.define-palette(mat.$indigo-palette, 100);
+$accent: mat.define-palette(mat.$light-blue-palette, A200);
+// The "warn" palette is optional and defaults to red if not specified.
+// $warn: mat.define-palette(mat.$red-palette, 200);
+
+
+$dark-theme: mat.define-dark-theme((
+ color: (
+   primary: $primary,
+   accent: $accent,
+  //  warn: $warn,
+ ),
+));
+
+//set the background color
+$dark-theme-background-color: #07121a;
+$color: map.get($dark-theme, "color");
+$colorBackground: map.get($color, "background");
+$colorBackground: map.set($colorBackground, "background", 
+$dark-theme-background-color);
+$color: map.set($color, "background", $colorBackground);
+$dark-theme: map.set($dark-theme, "color", $color);
+
+
+@include mat.all-component-themes($dark-theme);
