@@ -7,6 +7,7 @@ import { CartComponent } from './modules/cart/cart.component';
 import { PaymentComponent } from './modules/payment/payment.component';
 import { canActivateUser } from './services/permissions.service';
 import { LoginComponent } from './modules/login-system/login.component';
+import { OrdersComponent } from './modules/user/orders/orders.component';
 
 
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, data: { animation: 'LoginPage' }},
   { path: 'cart', component: CartComponent, data: { animation: 'CartPage' } },
   { path: 'payment', component: PaymentComponent, data: { animation: 'PaymentPage' }, canActivate: [canActivateUser] },
+  { path: 'orders', component: OrdersComponent, data: { animation: 'OrdersPage' }, canActivate: [canActivateUser] },
 ];
 
 @NgModule({

@@ -10,10 +10,7 @@ import { DocumentSnapshot } from 'firebase/firestore';
   providedIn: 'root'
 })
 export class ProductDataService {
-  private productConverter;
-  constructor(private firebaseDataService: FirebaseDataService) { 
-    this.productConverter = this.initializeConverter();
-  }
+  constructor(private firebaseDataService: FirebaseDataService) { }
 
   public getProducts(): Observable<Product[]>{
     const productsString = sessionStorage.getItem("products");
@@ -21,7 +18,7 @@ export class ProductDataService {
       console.log("Products found in session storage");
       return from([plainToInstance(Product, JSON.parse(productsString) as Product[])]);
     }
-    return this.firebaseDataService.getCollection("products", this.productConverter).pipe(
+    return this.firebaseDataService.getCollection("products", Product.firebaseConverter).pipe(
       map(querySnapshot =>{
         const products = querySnapshot.docs.map(doc =>{
           const product = doc.data() as Product;
@@ -39,33 +36,12 @@ export class ProductDataService {
       console.log("Product found in session storage");
       return from([plainToInstance(Product, JSON.parse(productString) as Product)]);
     }
-    return this.firebaseDataService.getDoc("products", id, this.productConverter).pipe(
+    return this.firebaseDataService.getDoc("products", id, Product.firebaseConverter).pipe(
       map(doc =>{
         const product = doc.data() as Product;
         sessionStorage.setItem(id, JSON.stringify(product));
         return product;
       })
     );
-  }
-
-
-  private initializeConverter(){
-    return {
-      toFirestore: (product: Product) => {
-        return {
-          name: product.name,
-          description: product.description,
-          price: product.price,
-          image: product.image
-        };
-      },
-      fromFirestore: (snapshot: DocumentSnapshot) => {
-        const data = snapshot.data();
-        if(!data){
-          return null;
-        }
-        return new Product(snapshot.id, data['name'], data['price'], data['description'], data['image']);
-      }
-    }
   }
 }

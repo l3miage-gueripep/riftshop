@@ -1,12 +1,16 @@
-<div class="cart-items" >
-    <h1>Your cart</h1>
-    <a [routerLink]="['/payment']" *ngIf="cartService.content.length" mat-raised-button color="accent" class="place-order">Place order</a>
-    <div *ngIf="cartService.content.length > 0; else noItem" class="items-list">
-      <app-cart-item *ngFor="let item of this.cartService.content" [cartItem]="item"></app-cart-item>
-    </div>
+<div class="cart">
+  <h1>Your cart</h1>
+  <div *ngIf="cartService.content.length > 0; else noItem" class="items-list">
+    <app-cart-item *ngFor="let item of this.cartService.content" [cartItem]="item"></app-cart-item>
+  </div>
+  <mat-card class="total-price" *ngIf="cartService.content.length > 0">
+    <mat-card-title class="total-price">Total: {{ this.cartService.totalPrice }}</mat-card-title>
+    <a [routerLink]="['/payment']" *ngIf="cartService.content.length" mat-raised-button color="accent"
+      class="place-order">Place order</a>
+  </mat-card>
 
-    <ng-template #noItem>
-      <!-- Alternative content when there are no items -->
-      <p class="no-item-message">No item found.</p>
-    </ng-template>
+  <ng-template #noItem>
+    <!-- Alternative content when there are no items -->
+    <p class="no-item-message">No item found.</p>
+  </ng-template>
 </div>

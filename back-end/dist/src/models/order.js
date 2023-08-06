@@ -7,28 +7,36 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Product } from "./product.js";
 import { Type } from "class-transformer";
-export class CartItem {
+import { CartItem } from "./cart-item.js";
+export class Order {
     id;
-    quantity;
-    product;
-    constructor(id, quantity, product) {
+    userUid;
+    totalPrice;
+    date;
+    completed;
+    items;
+    constructor(id, userUid, items, totalPrice, date, completed = false) {
         this.id = id;
-        this.quantity = quantity;
-        this.product = product;
+        this.userUid = userUid;
+        this.totalPrice = totalPrice;
+        this.date = date;
+        this.completed = completed;
+        this.items = items;
     }
     get interface() {
-        console.log(this.product);
-        console.log(this.product.interface);
+        const itemsInterface = this.items.map((item) => item.interface);
         return {
-            product: this.product.interface,
-            quantity: this.quantity
+            userUid: this.userUid,
+            items: itemsInterface,
+            totalPrice: this.totalPrice,
+            date: this.date,
+            completed: this.completed,
         };
     }
 }
 __decorate([
-    Type(() => Product),
-    __metadata("design:type", Product)
-], CartItem.prototype, "product", void 0);
-//# sourceMappingURL=cart-item.js.map
+    Type(() => CartItem),
+    __metadata("design:type", Array)
+], Order.prototype, "items", void 0);
+//# sourceMappingURL=order.js.map

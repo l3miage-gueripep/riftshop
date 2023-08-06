@@ -1,0 +1,19 @@
+<div class="wrapper">
+    <a [routerLink]="['/products', this.orderItem.product.id]">
+        <img [src]="this.orderItem.product.image" alt="">
+    </a>
+
+    <div>
+        <div class="flex">
+            <a [routerLink]="['/products', this.orderItem.product.id]">
+                <h2>{{ this.orderItem.product.name }}</h2>
+            </a>
+            <h3 class="total-price">Total Price: {{ this.orderItem.frenchTotalPrice }}</h3>
+        </div>
+
+        <h2>{{ this.orderItem.product.frenchPrice }}</h2>
+
+        <h3 class="quantity">Quantity: {{ this.orderItem.quantity }}</h3>
+        
+    </div>
+</div>

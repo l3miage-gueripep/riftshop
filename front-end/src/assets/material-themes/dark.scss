@@ -26,10 +26,8 @@ $dark-theme: mat.define-dark-theme((
 $dark-theme-background-color: #07121a;
 $color: map.get($dark-theme, "color");
 $colorBackground: map.get($color, "background");
-$colorBackground: map.set($colorBackground, "background", 
-$dark-theme-background-color);
+$colorBackground: map.set($colorBackground, "background", $dark-theme-background-color);
 $color: map.set($color, "background", $colorBackground);
 $dark-theme: map.set($dark-theme, "color", $color);
-
 
 @include mat.all-component-themes($dark-theme);

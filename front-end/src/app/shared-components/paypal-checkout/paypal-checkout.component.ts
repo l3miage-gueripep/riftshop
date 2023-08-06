@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { environment } from '../../../environment';
 import { CartService } from 'src/app/services/cart.service';
+import { FirebaseLoginService } from 'src/app/services/firebase-login.service';
 
 @Component({
   selector: 'app-paypal-checkout',
@@ -13,7 +14,7 @@ export class PaypalCheckoutComponent {
   @ViewChild('alerts') alerts!: ElementRef<HTMLInputElement>;
   protected paymentStateMessage: string = "";
 
-  constructor(private cartService: CartService) {
+  constructor(private cartService: CartService, private firebaseLoginService: FirebaseLoginService) {
   }
 
   ngAfterViewInit() {
@@ -47,7 +48,7 @@ export class PaypalCheckoutComponent {
           createOrder: function (data: any, actions: any) { //https://developer.paypal.com/docs/api/orders/v2/#orders_create
             return fetch(`${environment.apiUrl}/create_order`, {
               method: "post", headers: { "Content-Type": "application/json; charset=utf-8" },
-              body: JSON.stringify({ "intent": intent, orderContent: JSON.stringify(self.cartService.content) })
+              body: JSON.stringify({ "intent": intent, orderContent: JSON.stringify(self.cartService.content), userUid: JSON.stringify(self.firebaseLoginService.user?.uid) })
             })
               .then((response) => response.json())
               .then((order) => { return order.id; });
@@ -71,6 +72,10 @@ export class PaypalCheckoutComponent {
                 ${order_details.purchase_units[0].payments[intent_object][0].amount.value} ${order_details.purchase_units[0].payments[intent_object][0].amount.currency_code}!`;
                 //Close out the PayPal buttons that were rendered
                 paypal_buttons.close();
+
+                //Clear the cart
+                self.cartService.clearCart();
+                
               })
               .catch((error) => {
                 console.log(error);

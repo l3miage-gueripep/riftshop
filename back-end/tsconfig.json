@@ -12,7 +12,9 @@
     "allowSyntheticDefaultImports": true,                /* Allow default imports from modules with no default export. */
     "typeRoots": [
       "./node_modules/@types",
-    ]
+    ],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
   },
   "include": ["src/**/*"],
 }

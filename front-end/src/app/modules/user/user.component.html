@@ -1,1 +1,18 @@
-<button (click)="this.firebaseLoginService.logout()">Disconnect</button>
+<div class="wrapper">
+  <h2>Your account</h2>
+  <button mat-raised-button color="warn" (click)="this.firebaseLoginService.logout()" type="button">Disconnect</button>
+  <div class="user-options">
+    <a routerLink="/orders">
+      <mat-card>
+        <fa-icon [icon]="boxIcon"></fa-icon>
+        <mat-card-title>Orders</mat-card-title>
+      </mat-card>
+    </a>
+    <a href="">
+      <mat-card>
+        <fa-icon [icon]="screwdriverWrenchIcon"></fa-icon>
+        <mat-card-title>Login & Security</mat-card-title>
+      </mat-card>
+    </a>
+  </div>
+</div>

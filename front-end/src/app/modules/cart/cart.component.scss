@@ -1,15 +1,24 @@
-.cart-items{
+.cart{
     grid-column: 2;
     display: grid;
     gap: 20px;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr auto;
 }
 
 .items-list{
-    grid-column: 1/3;
+    grid-row: 2;
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+mat-card.total-price{
+    grid-row: 2;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-self: start;
 }
 
 :host{
@@ -20,8 +29,4 @@
 .no-item-message{
     grid-row: 2;
     margin-left: 10px;
-}
-
-.place-order{
-    place-self: center end;
 }

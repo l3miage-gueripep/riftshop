@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FirebaseService } from './firebase.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { User, signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth, Auth, onAuthStateChanged, signInWithRedirect } from 'firebase/auth';
-import { BehaviorSubject, skip } from 'rxjs';
+import { User, signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth, Auth, UserCredential } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -33,9 +32,7 @@ export class FirebaseLoginService {
   public async login(email: string, password: string) {
     await signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
-        this.user = userCredential.user;
-        localStorage.setItem('userAuth', JSON.stringify(userCredential));
-        this.autoRedirect();
+        this.authenticate(userCredential);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -44,18 +41,23 @@ export class FirebaseLoginService {
       });
   }
 
-  public register(email: string, password: string) {
-    createUserWithEmailAndPassword(this.auth, email, password)
+  public async register(email: string, password: string) {
+    await createUserWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
         // Signed in 
-        this.user = userCredential.user;
-        // ...
+        this.authenticate(userCredential);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.warn(errorCode, errorMessage);
       });
+  }
+
+  private authenticate(userCredential: UserCredential): void {
+    this.user = userCredential.user;
+    localStorage.setItem('userAuth', JSON.stringify(userCredential));
+    this.autoRedirect();
   }
 
   public logout() {

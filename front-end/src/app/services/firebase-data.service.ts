@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FirebaseService } from './firebase.service';
 import { DocumentSnapshot, Firestore, QuerySnapshot, collection, doc, getDoc, getDocs, getFirestore, query, where } from "firebase/firestore";
-import { Observable, from } from 'rxjs';
+import { Observable, from, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,13 @@ export class FirebaseDataService {
     return from(getDocs(q));
   }
 
-  //you can make queries such as this
-  //const q = query(collection(db, "cities"), where("capital", "==", true));
+  public getCollectionWhere<DataType>(collectionName: string, converter: any, field: string, operator: any, value: any): Observable<DataType[]> {
+    const q = query(collection(this.db, collectionName).withConverter(converter), where(field, operator, value));
+    return from(getDocs(q)).pipe(
+      map(querySnapshot =>{
+        return querySnapshot.docs.map(doc => doc.data() as DataType);
+      })
+    );
+  }
 
 }

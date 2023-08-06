@@ -14,6 +14,7 @@ import { CartModule } from './modules/cart/cart.module';
 import { PaymentModule } from './modules/payment/payment.module';
 import { LoginSystemModule } from './modules/login-system/login-system.module';
 import { AuthGuard } from './services/permissions.service';
+import { UserModule } from './modules/user/user.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AuthGuard } from './services/permissions.service';
     CartModule,
     PaymentModule,
     FontAwesomeModule,
-    LoginSystemModule
+    LoginSystemModule,
+    UserModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

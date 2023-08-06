@@ -15,14 +15,14 @@ export class CartService {
 
   public addProduct(cartItem: CartItem) {
     this.content.push(cartItem);
-    this.setLocalStorageContent();
+    this.refreshLocalStorageContent();
   }
 
   public removeProduct(productId: string): void {
     this.content = this.content.filter(contentItem => {
       return contentItem.product.id !== productId;
     });
-    this.setLocalStorageContent();
+    this.refreshLocalStorageContent();
   }
 
   public isProductInCart(searchedProduct: Product): boolean{
@@ -40,7 +40,7 @@ export class CartService {
     }    
   }
 
-  private setLocalStorageContent(): void{
+  private refreshLocalStorageContent(): void{
     localStorage.setItem('cartContent', JSON.stringify(this.content))
   }
 
@@ -48,11 +48,20 @@ export class CartService {
     return this.content.reduce((total, item) => total + item.quantity, 0);
   }
 
+  public get totalPrice(): string {
+    return '€ ' + this.content.reduce((total, item) => total + (item.product.price * item.quantity), 0).toFixed(2);
+  }
+
   public setProductQuantity(productId: string, quantity: number){
     const cartItem: CartItem | undefined = this.content.find(cartItem => cartItem.product.id === productId);
     if(cartItem){
       cartItem.quantity = quantity;
-      this.setLocalStorageContent();
+      this.refreshLocalStorageContent();
     }
+  }
+
+  public clearCart(): void{
+    this.content = [];
+    this.refreshLocalStorageContent();
   }
 }

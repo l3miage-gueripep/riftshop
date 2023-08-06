@@ -1,9 +1,12 @@
+import 'reflect-metadata';
 import express from 'express';
 import fetch from 'node-fetch';
 import 'dotenv/config';
 import cors from 'cors';
-import { CartItem } from './models/cart-item.js';
 import { Firebase } from './firebase.js';
+import { Order } from './models/order.js';
+import { CartItem } from './models/cart-item.js';
+import { plainToInstance } from 'class-transformer';
 
 const firebase = new Firebase();
 
@@ -22,7 +25,7 @@ const client_secret: string | undefined = process.env.CLIENT_SECRET;
 const endpoint_url: string = environment === 'sandbox' ? 'https://api-m.sandbox.paypal.com' : 'https://api-m.paypal.com';
 
 app.post('/create_order', (req, res) => {
-  create_order(JSON.parse(req.body.orderContent), req, res);
+  create_order(JSON.parse(req.body.orderContent), JSON.parse(req.body.userUid),req, res);
 });
 
 
@@ -38,6 +41,7 @@ app.post('/complete_order', (req, res) => {
       })
         .then(res => res.json())
         .then(json => {
+          firebase.completeOrder(req.body.order_id);
           res.send(json);
         }) //Send minimal data to client
     })
@@ -72,18 +76,16 @@ app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`)
 })
 
-async function create_order(order_data: any, req: any, res: any){
-  console.log(order_data);
+async function create_order(cartItems: CartItem[], userUid: string, req: any, res: any){
   let totalPrice: number = 0;
-  for(const cartItem of order_data){
-    totalPrice += await firebase.getProductPrice(cartItem.product.id);
+  for(const cartItem of cartItems){
+    totalPrice += await firebase.getProductPrice(cartItem.product.id) * cartItem.quantity;
   };
-  console.log(totalPrice);
   totalPrice = Math.round(totalPrice * 100) / 100;
-  post_order(totalPrice, req, res);
+  post_order(totalPrice, userUid, req, res);
 }
 
-function post_order(order_price: number, req: any, res: any){
+function post_order(order_price: number, userUid: string, req: any, res: any){
   get_access_token()
   .then(access_token => {
     let order_data_json = {
@@ -108,6 +110,9 @@ function post_order(order_price: number, req: any, res: any){
       .then(res => res.json())
       .then(json => {
         res.send(json);
+        const items: CartItem[] = plainToInstance(CartItem, JSON.parse(req.body.orderContent));
+        const order: Order = new Order((json as any).id, userUid, items, order_price, new Date());
+        firebase.createOrder(order);
       }) //Send minimal data to client
   })
   .catch(err => {

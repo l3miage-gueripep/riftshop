@@ -1,0 +1,26 @@
+.wrapper{
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: 200px;
+    gap: 20px;
+    border-top: 1px solid rgba(130, 130, 130, 0.5);
+    padding: 20px 0 0 0;
+}
+
+img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.flex h2, .flex h3{
+    margin: 0;
+}

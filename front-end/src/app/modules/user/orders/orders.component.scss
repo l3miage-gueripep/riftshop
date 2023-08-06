@@ -1,0 +1,34 @@
+:host{
+    display: grid;
+    grid-template-columns: 1fr 7fr 1fr;
+}
+
+.wrapper{
+    grid-column: 2;
+}
+
+mat-card{
+    padding: 20px;
+}
+
+mat-card-title{
+    font-size: 1.7rem;
+    font-weight: 350;
+}
+
+.products{
+    display: grid;
+    gap: 20px; 
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.flex{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.order{
+    margin-bottom: 20px;
+}

@@ -31,9 +31,11 @@ export class LoginComponent {
     return this.loginForm.valid
   }
 
-  public register(){
+  public async register(){
     const { email, password } = this.registerForm.value;
-    this.firebaseLoginService.register(email, password);
+    this.generalService.isLoading = true;
+    await this.firebaseLoginService.register(email, password);
+    this.generalService.isLoading = false;
   }
 
   public async login(){

@@ -9,7 +9,7 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./menu-buttons.component.css']
 })
 export class MenuButtonsComponent {
-  shoppingCartIcon = faShoppingBag;
-  userIcon = faUser;
+  protected shoppingCartIcon = faShoppingBag;
+  protected userIcon = faUser;
   constructor(protected cartService: CartService) { }
 }
