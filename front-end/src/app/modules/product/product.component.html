@@ -10,12 +10,12 @@
     <app-quantity-selector [hidden]="(this.isProductInCart$ | async)"></app-quantity-selector>
 
     <div class="action-buttons">
-      <div *ngIf="!(this.isProductInCart$ | async); else alreadyInCart" class="cart elegant" (click)="addToCart()"
+      <button *ngIf="!(this.isProductInCart$ | async); else alreadyInCart" class="cart elegant" (click)="addToCart()"
         (mouseenter)="playSlideRightAnimation('cart-button', 'open')"
         (mouseleave)="playSlideRightAnimation('cart-button', 'closed')">
         <div class="background" [@slide]="cartButtonState"></div>
         <div class="text">Add to Cart</div>
-      </div>
+      </button>
       <ng-template #alreadyInCart>
         <div class="already-in-cart-buttons">
           <div class="go-to-cart" (click)="goToCart()">
@@ -27,11 +27,12 @@
         </div>
       </ng-template>
 
-      <div class="buy elegant" (mouseenter)="playSlideRightAnimation('buy-button', 'open')"
-        (mouseleave)="playSlideRightAnimation('buy-button', 'closed')">
+      <a class="buy elegant" (mouseenter)="playSlideRightAnimation('buy-button', 'open')"
+        (mouseleave)="playSlideRightAnimation('buy-button', 'closed')"
+        [routerLink]="['/payment', (this.product$ | async)?.id]">
         <div class="background" [@slide]="buyButtonState"></div>
         <div class="text">Buy now</div>
-      </div>
+      </a>
     </div>
   </div>
 

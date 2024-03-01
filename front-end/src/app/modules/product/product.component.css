@@ -51,11 +51,13 @@ img{
 
 .cart{
     border: 1px solid grey;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .action-buttons > *{
     font-size: 1.5em;
     cursor: pointer;
+    padding: 0;
 }
 
 .action-buttons > .elegant{
@@ -75,13 +77,11 @@ img{
 
 .background{
     background-color: rgb(188, 205, 255);
-    /* z-index: -1000; */
     grid-area: 1/1;
 }
 .buy{
     background-color: #1138b1;
     border: 1px solid #1138b1;
-    /* z-index: -1000; */
     color: white;
     transition: 0.5s;
 }

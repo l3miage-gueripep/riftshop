@@ -13,35 +13,10 @@ export class ProductDataService {
   constructor(private firebaseDataService: FirebaseDataService) { }
 
   public getProducts(): Observable<Product[]>{
-    const productsString = sessionStorage.getItem("products");
-    if(productsString){
-      console.log("Products found in session storage");
-      return from([plainToInstance(Product, JSON.parse(productsString) as Product[])]);
-    }
-    return this.firebaseDataService.getCollection("products", Product.firebaseConverter).pipe(
-      map(querySnapshot =>{
-        const products = querySnapshot.docs.map(doc =>{
-          const product = doc.data() as Product;
-          return product;
-        });
-        sessionStorage.setItem("products", JSON.stringify(products)); 
-        return products;
-      })
-    );
+    return this.firebaseDataService.getCollectionFromFirebaseOrLocalStorage("products", Product.firebaseConverter, Product)
   }
 
-  public getProductById(id: string): Observable<Product> {
-    const productString = sessionStorage.getItem(id);
-    if(productString){
-      console.log("Product found in session storage");
-      return from([plainToInstance(Product, JSON.parse(productString) as Product)]);
-    }
-    return this.firebaseDataService.getDoc("products", id, Product.firebaseConverter).pipe(
-      map(doc =>{
-        const product = doc.data() as Product;
-        sessionStorage.setItem(id, JSON.stringify(product));
-        return product;
-      })
-    );
+  public getProduct(id: string): Observable<Product> {
+    return this.firebaseDataService.getDocFromFirebaseOrLocalStorage("products", id, Product.firebaseConverter, Product);
   }
 }

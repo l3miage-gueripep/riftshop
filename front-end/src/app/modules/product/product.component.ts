@@ -27,7 +27,7 @@ export class ProductComponent {
   private retrieveProductFromRoute(): void {
     this.route.params.pipe(take(1)).subscribe(params => {
       const productId: string = params['id'];
-      this.product$ = this.productDataService.getProductById(productId);
+      this.product$ = this.productDataService.getProduct(productId);
     });
   }
 

@@ -1,1 +1,1 @@
-<app-paypal-checkout></app-paypal-checkout>
+<app-paypal-checkout *ngIf="!this.product$ || (this.product$ | async)" [product]="(this.product$ | async) || undefined"></app-paypal-checkout>

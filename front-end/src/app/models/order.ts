@@ -6,8 +6,12 @@ export class Order {
   @Type(() => CartItem)
   public items: CartItem[];
 
-  constructor(public id: string, public userUid: string, items: CartItem[], public totalPrice: number, public date: Date, public completed: boolean = false) { 
+  @Type(() => Date)
+  public date: Date;
+
+  constructor(public id: string, public userUid: string, items: CartItem[], public totalPrice: number, date: Date, public completed: boolean = false) { 
     this.items = items;
+    this.date = date;
   }
 
   public get formattedDate(): string {

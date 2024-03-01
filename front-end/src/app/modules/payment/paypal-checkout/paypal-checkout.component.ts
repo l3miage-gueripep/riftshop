@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { environment } from '../../../environment';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { environment } from '../../../../environment';
 import { CartService } from 'src/app/services/cart.service';
 import { FirebaseLoginService } from 'src/app/services/firebase-login.service';
+import { Product } from 'src/app/models/product';
+import { Observable } from 'rxjs';
+import { CartItem } from 'src/app/models/cart-item';
 
 @Component({
   selector: 'app-paypal-checkout',
@@ -13,6 +15,7 @@ export class PaypalCheckoutComponent {
   private paypal: any;
   @ViewChild('alerts') alerts!: ElementRef<HTMLInputElement>;
   protected paymentStateMessage: string = "";
+  @Input() product?: Product;
 
   constructor(private cartService: CartService, private firebaseLoginService: FirebaseLoginService) {
   }
@@ -46,9 +49,12 @@ export class PaypalCheckoutComponent {
           },
 
           createOrder: function (data: any, actions: any) { //https://developer.paypal.com/docs/api/orders/v2/#orders_create
+            //get the product bought or the cart content
+            const cartContent: CartItem[] = self.product ? [new CartItem(self.product, 1)] : [...self.cartService.content];
+              
             return fetch(`${environment.apiUrl}/create_order`, {
               method: "post", headers: { "Content-Type": "application/json; charset=utf-8" },
-              body: JSON.stringify({ "intent": intent, orderContent: JSON.stringify(self.cartService.content), userUid: JSON.stringify(self.firebaseLoginService.user?.uid) })
+              body: JSON.stringify({ "intent": intent, orderContent: JSON.stringify(cartContent), userUid: JSON.stringify(self.firebaseLoginService.user?.uid) })
             })
               .then((response) => response.json())
               .then((order) => { return order.id; });

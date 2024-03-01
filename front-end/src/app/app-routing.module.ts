@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, data: { animation: 'LoginPage' }},
   { path: 'cart', component: CartComponent, data: { animation: 'CartPage' } },
   { path: 'payment', component: PaymentComponent, data: { animation: 'PaymentPage' }, canActivate: [canActivateUser] },
+  { path: 'payment/:productId', component: PaymentComponent, data: { animation: 'PaymentPage' }, canActivate: [canActivateUser] },
   { path: 'orders', component: OrdersComponent, data: { animation: 'OrdersPage' }, canActivate: [canActivateUser] },
 ];
 
