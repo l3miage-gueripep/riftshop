@@ -50,6 +50,7 @@ export class PaypalCheckoutComponent {
 
           createOrder: function (data: any, actions: any) { //https://developer.paypal.com/docs/api/orders/v2/#orders_create
             //get the product bought or the cart content
+            //TODO: get the id
             const cartContent: CartItem[] = self.product ? [new CartItem(self.product, 1)] : [...self.cartService.content];
               
             return fetch(`${environment.apiUrl}/create_order`, {

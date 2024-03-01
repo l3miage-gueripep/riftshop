@@ -8,10 +8,17 @@
       <h2>{{ this.cartItem.product.name }}</h2>
     </a>
     <h2 class="total-price">{{ this.cartItem.frenchTotalPrice }}</h2>
-    <app-quantity-selector [quantity]="this.cartItem.quantity" [cartItem]="this.cartItem"></app-quantity-selector>
+    <mat-form-field>
+      <mat-label>Select a quantity</mat-label>
+      <mat-select [(ngModel)]="cartItem.quantity" (ngModelChange)="updateItemQuantity()">
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let quantity of [1,2,3,4,5,6,7,8,9]" [value]="quantity">{{quantity}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <app-quantity-selector [quantity]="this.cartItem.quantity" [cartItem]="this.cartItem"></app-quantity-selector> -->
     <button mat-raised-button color="warn" (click)="deleteFromCart()" class="delete-button">
       Delete From Cart
     </button>
-    
+
   </div>
 </mat-card>

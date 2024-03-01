@@ -41,8 +41,11 @@ export class ProductComponent {
     this.product$.pipe(last()).subscribe(product => {
       const quantity: number = this.quantitySelector.quantity;
       const cartItem: CartItem = new CartItem(product, quantity);
-      this.cartService.addProduct(cartItem);
+      this.cartService.addItem(cartItem).subscribe(item => {
+        cartItem.id = item.id;
+      });
     });
+    
     //reset animation and update observable
     this.playSlideRightAnimation('cart-button', 'closed')
     this.isProductInCart$.next(true);
@@ -54,7 +57,7 @@ export class ProductComponent {
 
   protected deleteFromCart(): void {
     this.product$.pipe(take(1)).subscribe(product => {
-      this.cartService.removeProduct(product.id);
+      this.cartService.removeItem(product.id);
     });
     this.isProductInCart$.next(false);
   }

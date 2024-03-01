@@ -35,10 +35,11 @@ export class Product {
   }
   public get interface(): any {
     return {
+      ...(this.id ? { id: this.id } : {}),
       name: this.name,
       description: this.description,
       price: this.price,
-      image: this.image
+      image: this._image
     };
   }
 }

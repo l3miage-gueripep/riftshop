@@ -6,6 +6,11 @@ import { RouterModule } from '@angular/router';
 import { SharedComponentsModule } from 'src/app/shared-components/shared-components.module';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+
+
 
 
 @NgModule({
@@ -18,7 +23,10 @@ import {MatButtonModule} from '@angular/material/button';
     RouterModule,
     SharedComponentsModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    FormsModule
   ],
   exports: [
     CartComponent

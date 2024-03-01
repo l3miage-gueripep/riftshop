@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CartItem } from 'src/app/models/cart-item';
 import { CartService } from 'src/app/services/cart.service';
+import { GeneralService } from 'src/app/services/general.service';
 
 @Component({
   selector: 'app-cart-item',
@@ -10,11 +11,19 @@ import { CartService } from 'src/app/services/cart.service';
 export class CartItemComponent {
   @Input() public cartItem!: CartItem;
 
-  constructor(private cartService: CartService){
+  constructor(private cartService: CartService, private generalService: GeneralService) { }
 
+  updateItemQuantity(){
+    this.generalService.enableLoading();
+    this.cartService.updateCartItem(this.cartItem).subscribe((test) => {
+      this.generalService.disableLoading();
+    });
   }
 
   protected deleteFromCart(){
-    this.cartService.removeProduct(this.cartItem.product.id);
+    this.generalService.enableLoading();
+    this.cartService.removeItem(this.cartItem.id!).subscribe(() => {
+      this.generalService.disableLoading();
+    });
   }
 }

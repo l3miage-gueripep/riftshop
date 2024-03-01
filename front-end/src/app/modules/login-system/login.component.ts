@@ -33,17 +33,16 @@ export class LoginComponent {
 
   public async register(){
     const { email, password } = this.registerForm.value;
-    this.generalService.isLoading = true;
+    this.generalService.enableLoading();
     await this.firebaseLoginService.register(email, password);
-    this.generalService.isLoading = false;
+    this.generalService.disableLoading();
   }
 
   public async login(){
     const { email, password } = this.loginForm.value;
-    this.generalService.isLoading = true;
+    this.generalService.enableLoading();
     await this.firebaseLoginService.login(email, password);
-    this.generalService.isLoading = false;
-    
+    this.generalService.disableLoading();
   }
 
 }

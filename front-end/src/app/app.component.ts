@@ -1,4 +1,3 @@
-import { style, transition, trigger, animate } from '@angular/animations';
 import { Component } from '@angular/core';
 import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
 import { routeAnimation } from './animations/route-animation';

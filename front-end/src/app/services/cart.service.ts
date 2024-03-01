@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Product } from '../models/product';
 import { CartItem } from '../models/cart-item';
 import { plainToInstance } from 'class-transformer';
+import { FirebaseDataService } from './firebase-data.service';
+import { Observable } from 'rxjs';
+import { DocumentData, DocumentReference } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -9,20 +12,25 @@ import { plainToInstance } from 'class-transformer';
 export class CartService {
   public content: CartItem [] = [];
 
-  constructor(){
-    this.loadLocalStorageContent();
+  constructor(private firebaseDataService: FirebaseDataService){
+    this.loadContentFromFirebase();
   }
 
-  public addProduct(cartItem: CartItem) {
+  public addItem(cartItem: CartItem) : Observable<DocumentReference<DocumentData>>{
+    //if it already exists, increase the quantity
     this.content.push(cartItem);
-    this.refreshLocalStorageContent();
+    return this.firebaseDataService.addToCart(cartItem);
   }
 
-  public removeProduct(productId: string): void {
+  public updateCartItem(cartItem: CartItem): Observable<void>{
+    return this.firebaseDataService.updateCartItem(cartItem);
+  }
+
+  public removeItem(itemId: string): Observable<void> {
     this.content = this.content.filter(contentItem => {
-      return contentItem.product.id !== productId;
+      return contentItem.id !== itemId;
     });
-    this.refreshLocalStorageContent();
+    return this.firebaseDataService.deleteCartItem(itemId);
   }
 
   public isProductInCart(searchedProduct: Product): boolean{
@@ -32,17 +40,16 @@ export class CartService {
     return (foundProduct !== undefined);
   }
 
-  private loadLocalStorageContent(): void{
-    const storedContent = localStorage.getItem('cartContent');
-    if(storedContent){
-      //using class-transformer to get instances instead of literal objects
-      this.content = plainToInstance(CartItem, JSON.parse(storedContent));
-    }    
-  }
-
   private refreshLocalStorageContent(): void{
     localStorage.setItem('cartContent', JSON.stringify(this.content))
   }
+
+
+  // public saveInFirebase(): void{
+  //   if(this.content.length === 0)
+  //     return;
+  //   this.firebaseDataService.setDocInFirebase('cart', this.content[0].interface);
+  // }
 
   public get itemsAmount(): number {
     return this.content.reduce((total, item) => total + item.quantity, 0);
@@ -58,6 +65,16 @@ export class CartService {
       cartItem.quantity = quantity;
       this.refreshLocalStorageContent();
     }
+  }
+
+  public loadContentFromFirebase(): void {
+    this.firebaseDataService.loadCart().subscribe(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        const cartItem = doc.data() as CartItem;
+        cartItem.id = doc.id;
+        this.content.push(cartItem);
+      });
+    });
   }
 
   public clearCart(): void{

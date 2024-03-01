@@ -5,9 +5,21 @@ import { Injectable } from '@angular/core';
 })
 //meant to manage very small things that don't fit anywhere else
 export class GeneralService {
-  public isLoading: boolean;
+  private _isLoading: boolean;
 
   constructor() { 
-    this.isLoading = false;
+    this._isLoading = false;
+  }
+
+  public enableLoading(): void {
+    this._isLoading = true;
+  }
+
+  public disableLoading(): void {
+    this._isLoading = false;
+  }
+
+  public get isLoading(): boolean {
+    return this._isLoading;
   }
 }
