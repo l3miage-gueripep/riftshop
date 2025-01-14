@@ -1,0 +1,24 @@
+:host{
+    display: grid;
+    grid-template-columns: 1fr 7fr 1fr;
+}
+
+.wrapper{
+    display: flex;
+    grid-column: 2;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+mat-card{
+    padding: 20px;
+}
+
+mat-card-title{
+    font-size: 1.7rem;
+    font-weight: 350;
+}
+
+.payment-items{
+    flex: 2;
+}

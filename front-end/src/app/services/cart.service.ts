@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../models/product';
-import { CartItem } from '../models/cart-item';
-import { plainToInstance } from 'class-transformer';
-import { FirebaseDataService } from './firebase-data.service';
-import { Observable } from 'rxjs';
 import { DocumentData, DocumentReference } from 'firebase/firestore';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { CartItem } from '../models/cart-item';
+import { Product } from '../models/product';
+import { FirebaseDataService } from './firebase-data.service';
 import { FirebaseLoginService } from './firebase-login.service';
+import { GeneralService } from './general.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +13,18 @@ import { FirebaseLoginService } from './firebase-login.service';
 export class CartService {
   public content: CartItem [] = [];
 
-  constructor(private firebaseDataService: FirebaseDataService, private firebaseLoginService: FirebaseLoginService){
+  public loaded$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  constructor(private firebaseDataService: FirebaseDataService, private firebaseLoginService: FirebaseLoginService, private generalService: GeneralService) {
     if(this.firebaseLoginService.user){
       this.loadContentFromFirebase();
     }
   }
 
   public addItem(cartItem: CartItem) : Observable<DocumentReference<DocumentData>>{
-    //if it already exists, increase the quantity
+    if(this.isProductInCart(cartItem.product)){
+      throw new Error('Product already in cart');
+    }
     this.content.push(cartItem);
     return this.firebaseDataService.addToCart(cartItem);
   }
@@ -29,10 +33,18 @@ export class CartService {
     return this.firebaseDataService.updateCartItem(cartItem);
   }
 
-  public removeItem(itemId: string): Observable<void> {
+  public removeItem(productId: string): Observable<void> {
+    let itemId: string | undefined;
     this.content = this.content.filter(contentItem => {
-      return contentItem.id !== itemId;
+      const isItemToRemove = contentItem.product.id === productId;
+      if(isItemToRemove){
+        itemId = contentItem.id;
+      }
+      return !isItemToRemove;
     });
+    if(itemId === undefined){
+      throw new Error('Product not in cart');
+    }
     return this.firebaseDataService.deleteCartItem(itemId);
   }
 
@@ -46,13 +58,6 @@ export class CartService {
   private refreshLocalStorageContent(): void{
     localStorage.setItem('cartContent', JSON.stringify(this.content))
   }
-
-
-  // public saveInFirebase(): void{
-  //   if(this.content.length === 0)
-  //     return;
-  //   this.firebaseDataService.setDocInFirebase('cart', this.content[0].interface);
-  // }
 
   public get itemsAmount(): number {
     return this.content.reduce((total, item) => total + item.quantity, 0);
@@ -71,12 +76,16 @@ export class CartService {
   }
 
   public loadContentFromFirebase(): void {
+    this.generalService.enableLoading();
+    
     this.firebaseDataService.loadCart().subscribe(querySnapshot => {
       querySnapshot.forEach(doc => {
         const cartItem = doc.data() as CartItem;
         cartItem.id = doc.id;
         this.content.push(cartItem);
       });
+      this.generalService.disableLoading();
+      this.loaded$.next(true);
     });
   }
 

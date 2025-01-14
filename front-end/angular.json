@@ -6,8 +6,10 @@
     "riftshop": {
       "projectType": "application",
       "schematics": {
-        "style": "scss",
-        "skipTests": true
+        "@schematics/angular:component": {
+          "style": "scss",
+          "skipTests": true
+        }
       },
       "root": "",
       "sourceRoot": "src",

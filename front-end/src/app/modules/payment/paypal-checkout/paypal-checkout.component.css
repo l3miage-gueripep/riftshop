@@ -1,0 +1,14 @@
+
+
+:host{
+    min-width: 400px;
+    display: flex;
+}
+.container{
+    flex: 1;
+}
+
+.buttons-container::ng-deep{
+    display: flex;
+    justify-content: center;
+}

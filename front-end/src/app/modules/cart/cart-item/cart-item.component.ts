@@ -22,7 +22,7 @@ export class CartItemComponent {
 
   protected deleteFromCart(){
     this.generalService.enableLoading();
-    this.cartService.removeItem(this.cartItem.id!).subscribe(() => {
+    this.cartService.removeItem(this.cartItem.product.id).subscribe(() => {
       this.generalService.disableLoading();
     });
   }

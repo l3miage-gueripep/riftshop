@@ -7,32 +7,34 @@
       <div class="description">{{ p.description }}</div>
     </div>
 
-    <app-quantity-selector [hidden]="(this.isProductInCart$ | async)"></app-quantity-selector>
 
-    <div class="action-buttons">
-      <button *ngIf="!(this.isProductInCart$ | async); else alreadyInCart" class="cart elegant" (click)="addToCart()"
-        (mouseenter)="playSlideRightAnimation('cart-button', 'open')"
-        (mouseleave)="playSlideRightAnimation('cart-button', 'closed')">
-        <div class="background" [@slide]="cartButtonState"></div>
-        <div class="text">Add to Cart</div>
-      </button>
-      <ng-template #alreadyInCart>
-        <div class="already-in-cart-buttons">
-          <div class="go-to-cart" (click)="goToCart()">
-            <div class="text">Go to cart</div>
+    <div class="buttons" [ngClass]="{'invisible': !(cartService.loaded$ | async)}">
+      <app-quantity-selector [hidden]="(this.isProductInCart$ | async)"></app-quantity-selector>
+      <div class="action-buttons">
+      
+        <button *ngIf="!(this.isProductInCart$ | async); else alreadyInCart" class="cart elegant" (click)="addToCart()"
+          (mouseenter)="playSlideRightAnimation('cart-button', 'open')"
+          (mouseleave)="playSlideRightAnimation('cart-button', 'closed')">
+          <div class="background" [@slide]="cartButtonState"></div>
+          <div class="text">Add to Cart</div>
+        </button>
+        <ng-template #alreadyInCart>
+          <div class="already-in-cart-buttons">
+            <div class="go-to-cart" (click)="goToCart()">
+              <div class="text">Go to cart</div>
+            </div>
+            <div class="delete-button" (click)="deleteFromCart()">
+              <div class="text">Delete From Cart</div>
+            </div>
           </div>
-          <div class="delete-button" (click)="deleteFromCart()">
-            <div class="text">Delete From Cart</div>
-          </div>
-        </div>
-      </ng-template>
-
-      <a class="buy elegant" (mouseenter)="playSlideRightAnimation('buy-button', 'open')"
-        (mouseleave)="playSlideRightAnimation('buy-button', 'closed')"
-        [routerLink]="['/payment', (this.product$ | async)?.id]">
-        <div class="background" [@slide]="buyButtonState"></div>
-        <div class="text">Buy now</div>
-      </a>
+        </ng-template>
+        <a class="buy elegant" (mouseenter)="playSlideRightAnimation('buy-button', 'open')"
+          (mouseleave)="playSlideRightAnimation('buy-button', 'closed')"
+          [routerLink]="['/payment', (this.product$ | async)?.id]">
+          <div class="background" [@slide]="buyButtonState"></div>
+          <div class="text">Buy now</div>
+        </a>
+      </div>
     </div>
   </div>
 

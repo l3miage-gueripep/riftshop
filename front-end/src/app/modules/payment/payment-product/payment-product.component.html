@@ -1,0 +1,15 @@
+<div class="wrapper">
+    <a [routerLink]="['/products', this.product.id]">
+        <img [src]="this.product.image" alt="">
+    </a>
+
+    <div>
+        <div class="flex">
+            <a [routerLink]="['/products', this.product.id]">
+                <h2>{{ this.product.name }}</h2>
+            </a>
+        </div>
+
+        <h2>{{ this.product.frenchPrice }}</h2>        
+    </div>
+</div>

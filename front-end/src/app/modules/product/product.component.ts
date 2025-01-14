@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Observable, last, take } from 'rxjs';
+import { BehaviorSubject, Observable, filter, last, take } from 'rxjs';
 import { slide } from 'src/app/animations/animations';
 import { CartItem } from 'src/app/models/cart-item';
 import { Product } from 'src/app/models/product';
@@ -11,7 +11,7 @@ import { QuantitySelectorComponent } from 'src/app/shared-components/quantity-se
 @Component({
   selector: 'app-product[product]',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css'],
+  styleUrls: ['./product.component.scss'],
   animations: [slide]
 })
 export class ProductComponent {
@@ -33,7 +33,10 @@ export class ProductComponent {
 
   private refreshIsProductInCartOnProductRetrieved(): void {
     this.product$.pipe(take(1)).subscribe(product => {
-      this.isProductInCart$.next(this.cartService.isProductInCart(product));
+      this.cartService.loaded$.pipe(filter(l => l), take(1)).subscribe(() => {
+        this.isProductInCart$.next(this.cartService.isProductInCart(product));
+      });
+
     });
   }
 

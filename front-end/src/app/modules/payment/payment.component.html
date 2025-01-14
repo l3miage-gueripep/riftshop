@@ -1,1 +1,23 @@
-<app-paypal-checkout *ngIf="!this.product$ || (this.product$ | async)" [product]="(this.product$ | async) || undefined"></app-paypal-checkout>
+<div class="wrapper">
+    <mat-card class="payment-items">
+        <div *ngIf="!(product$ | async); else productTemplate">
+            <div class="flex">
+                <mat-card-title>Order total Price: {{cartService.totalPrice}}</mat-card-title>
+            </div>
+            <div class="products">
+                <app-payment-item *ngFor="let item of cartService.content" [orderItem]="item"></app-payment-item>
+            </div>
+        </div>
+        <ng-template #productTemplate>
+            <div class="flex">
+                <mat-card-title>Order Price: {{(product$ | async)?.price}}</mat-card-title>
+            </div>
+            <div class="products">
+                <app-payment-product [product]="(product$ | async)!"></app-payment-product>
+            </div>
+        </ng-template>
+    </mat-card>
+    <app-paypal-checkout *ngIf="!this.product$ || (this.product$ | async)"
+        [product]="(this.product$ | async) || undefined">
+    </app-paypal-checkout>
+</div>
