@@ -10,11 +10,11 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label>Password</mat-label>
-            <input matInput placeholder="Your password" formControlName="password" autocomplete="new-password">
+            <input matInput placeholder="Your password" formControlName="password" autocomplete="new-password" [type]="'password'">
         </mat-form-field>
         <mat-form-field>
             <mat-label>Confirm password</mat-label>
-            <input matInput placeholder="Repeat your password" formControlName="confirmPassword">
+            <input matInput placeholder="Repeat your password" formControlName="confirmPassword" [type]="'password'">
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit" [disabled]="this.registerForm.invalid">Submit</button>
     </form>
@@ -27,11 +27,11 @@
         <h2>Login</h2>
         <mat-form-field>
             <mat-label>Email</mat-label>
-            <input matInput placeholder="Your email address" formControlName="email" autocomplete="email">
+            <input matInput placeholder="Your email address" formControlName="email" autocomplete="email" >
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Password</mat-label>
-            <input matInput placeholder="Your password" formControlName="password" autocomplete="off">
+            <input matInput placeholder="Your password" formControlName="password" autocomplete="off" [type]="'password'">
         </mat-form-field>
         
         <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Submit</button>
