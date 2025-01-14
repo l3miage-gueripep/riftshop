@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { FirebaseService } from './firebase.service';
-import { UrlTree, Router, ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from '@angular/router';
-import { FirebaseLoginService } from './firebase-login.service';
+import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { FirebaseLoginService } from '../firebase-login.service';
 
+//authentication guard
 @Injectable()
 export class AuthGuard {
   constructor(private firebaseLoginService: FirebaseLoginService, private router: Router) { 
@@ -22,4 +22,5 @@ export const canActivateUser: CanActivateFn =
 (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
   return inject(AuthGuard).canActivate(state.url);
 };
+
 

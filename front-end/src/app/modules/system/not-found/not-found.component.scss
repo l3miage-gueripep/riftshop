@@ -1,0 +1,10 @@
+:host{
+    display: grid;
+    grid-template-columns: 1fr 7fr 1fr;
+}
+.wrapper{
+    grid-column: 2;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr auto;
+}
