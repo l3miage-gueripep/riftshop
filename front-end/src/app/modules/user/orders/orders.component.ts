@@ -13,7 +13,6 @@ export class OrdersComponent {
   protected orders$: Observable<Order[]>
   constructor(private orderService: OrdersService, private firebaseLoginService: FirebaseLoginService) { 
     const user = this.firebaseLoginService.user!;
-    console.log(user);
     this.orders$ = this.orderService.getUserOrders(user.uid);
     this.orders$.subscribe(orders => console.log(orders));
   }

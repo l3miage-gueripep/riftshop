@@ -3,12 +3,14 @@
     <div class="order" *ngFor="let order of (orders$ | async)">
         <mat-card>
             <div class="flex">
-                <mat-card-title>{{order.formattedDate}}</mat-card-title>
+                <mat-card-title>{{this.order.date | date: 'MMMM d, y' }}
+                    <span class="time">{{ order.date | date: 'h:mm a' }}</span>
+                </mat-card-title>
                 <mat-card-title>Order total Price: {{order.frenchTotalPrice}}</mat-card-title>
             </div>
             <mat-card-subtitle>Order Id: {{order.id}}</mat-card-subtitle>
-            
-            <div class="products">
+
+            <div class="products">  
                 <app-order-item *ngFor="let item of order.items" [orderItem]="item"></app-order-item>
             </div>
         </mat-card>

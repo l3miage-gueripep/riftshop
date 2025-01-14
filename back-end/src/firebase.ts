@@ -29,7 +29,6 @@ export class Firebase {
 
   public async createOrder(order: Order): Promise<void> {
     const docRef = this.db.collection('orders').doc(order.id);
-    console.log(order.interface);
     await docRef.set(order.interface);
   }
 

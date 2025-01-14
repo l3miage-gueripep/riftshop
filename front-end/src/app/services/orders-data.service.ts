@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { FirebaseDataService } from './firebase-data.service';
-import { Order } from '../models/order';
+import { collection, orderBy, query, where } from "firebase/firestore";
 import { Observable } from 'rxjs';
-import { collection, orderBy, where, query } from "firebase/firestore";
+import { Order } from '../models/order';
+import { FirebaseDataService } from './firebase-data.service';
 
 
 @Injectable({
@@ -18,7 +18,7 @@ export class OrdersService {
   }
 
   public getUserOrders(userUid: string): Observable<Order[]>{
-    const q = query(collection(this.firebaseDataService.db, this.collectionName).withConverter(Order.firebaseConverter), where("userUid", "==", userUid), orderBy("date"));
+    const q = query(collection(this.firebaseDataService.db, this.collectionName).withConverter(Order.firebaseConverter), where("userUid", "==", userUid), orderBy("date", "desc"));
     return this.firebaseDataService.getObservableFromQuery(q, this.collectionName);
   }
 }

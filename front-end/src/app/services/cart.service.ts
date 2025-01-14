@@ -5,6 +5,7 @@ import { plainToInstance } from 'class-transformer';
 import { FirebaseDataService } from './firebase-data.service';
 import { Observable } from 'rxjs';
 import { DocumentData, DocumentReference } from 'firebase/firestore';
+import { FirebaseLoginService } from './firebase-login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,10 @@ import { DocumentData, DocumentReference } from 'firebase/firestore';
 export class CartService {
   public content: CartItem [] = [];
 
-  constructor(private firebaseDataService: FirebaseDataService){
-    this.loadContentFromFirebase();
+  constructor(private firebaseDataService: FirebaseDataService, private firebaseLoginService: FirebaseLoginService){
+    if(this.firebaseLoginService.user){
+      this.loadContentFromFirebase();
+    }
   }
 
   public addItem(cartItem: CartItem) : Observable<DocumentReference<DocumentData>>{
